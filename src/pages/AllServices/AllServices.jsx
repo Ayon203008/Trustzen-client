@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useNavigate } from "react-router";
-import {
-  FiSearch,
-  FiTag,
-  FiDollarSign,
-  FiArrowUp,
-  FiArrowDown,
-} from "react-icons/fi";
+import { FiSearch, FiTag, FiDollarSign, FiArrowUp, FiArrowDown } from "react-icons/fi";
 
 const AllServices = () => {
   const [services, setServices] = useState([]);
@@ -74,13 +68,12 @@ const AllServices = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      {/* Sidebar container */}
+      {/* Sidebar */}
       <div
         className="relative flex"
         onMouseEnter={() => setSidebarExpanded(true)}
         onMouseLeave={() => setSidebarExpanded(false)}
       >
-        {/* Collapsed icons bar */}
         <div className="bg-white shadow-lg w-16 flex flex-col items-center py-6 space-y-6 z-50 cursor-pointer">
           <FiSearch size={24} className="text-gray-700" />
           <FiTag size={24} className="text-gray-700" />
@@ -89,7 +82,6 @@ const AllServices = () => {
           <FiArrowDown size={24} className="text-gray-700" />
         </div>
 
-        {/* Expanded sidebar */}
         <div
           className={`fixed top-0 left-16 h-full bg-white shadow-lg w-64 p-6 flex flex-col gap-4 transform transition-transform duration-300 z-40 ${
             sidebarExpanded ? "translate-x-0" : "-translate-x-64"
@@ -125,7 +117,7 @@ const AllServices = () => {
             </select>
           </div>
 
-          {/* Price range */}
+          {/* Price */}
           <div className="flex items-center gap-2 mb-2">
             <FiDollarSign size={20} />
             <input
@@ -165,7 +157,7 @@ const AllServices = () => {
       </div>
 
       {/* Main content */}
-      <div className={`flex-1 p-8 ml-16 transition-all duration-300`}>
+      <div className="flex-1 p-8 ml-16 transition-all duration-300">
         <h1 className="text-3xl font-bold text-center mb-8">Our Services</h1>
 
         {filteredServices.length === 0 ? (
@@ -175,14 +167,14 @@ const AllServices = () => {
             {filteredServices.map((service) => (
               <div
                 key={service._id}
-                className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl"
+                className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col justify-between hover:scale-105 hover:shadow-2xl transition"
               >
                 <img
                   src={service.serviceImage}
                   alt={service.serviceTitle}
                   className="w-full h-48 object-cover"
                 />
-                <div className="p-4 flex flex-col justify-between h-full">
+                <div className="p-4 flex flex-col justify-between flex-1">
                   <div>
                     <h2 className="text-xl font-semibold mb-2">{service.serviceTitle}</h2>
                     <p className="text-gray-500 mb-1">
@@ -197,8 +189,8 @@ const AllServices = () => {
                     <p className="text-gray-600 mt-2">{service.description}</p>
                   </div>
                   <button
-                    onClick={() => navigate(`/services/${service._id}`)}
-                    className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+                    onClick={() => navigate(`/services/${service._id.toString()}`)}
+                    className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition w-full"
                   >
                     View Details
                   </button>

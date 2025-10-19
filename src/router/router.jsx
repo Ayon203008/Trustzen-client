@@ -5,6 +5,9 @@ import Home from "../Components/Home/Home";
 import Login from "../Components/Login/Login";
 import Register from "../Components/Register/Register";
 import AllServices from "../pages/AllServices/AllServices";
+import AddService from "../pages/AddService/AddService";
+import MyServices from "../pages/MyServices/MyServices";
+import ServiceDetails from "../pages/ServiceDetails/ServiceDeatils";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +30,18 @@ export const router = createBrowserRouter([
       {
         path:"/allservices",
         Component:AllServices
+      },
+      {
+        path:'/addservice',
+        Component:AddService
+      },
+      {
+        path:'/myservices',
+        Component:MyServices
+      },
+      {
+        path:'/services/:id',
+        Component:ServiceDetails
       }
     ],
   },

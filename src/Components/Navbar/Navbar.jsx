@@ -20,6 +20,8 @@ export default function Navbar() {
   
   <NavLink to={"/"}>Home</NavLink>
   <NavLink to={"/allservices"}>Services</NavLink>
+  <NavLink to={"/addservice"}>Add Service</NavLink>
+  <NavLink to={"/myservices"}>My Service</NavLink>
   
   </>
 
