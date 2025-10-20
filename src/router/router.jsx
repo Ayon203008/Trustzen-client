@@ -8,6 +8,8 @@ import AllServices from "../pages/AllServices/AllServices";
 import AddService from "../pages/AddService/AddService";
 import MyServices from "../pages/MyServices/MyServices";
 import ServiceDetails from "../pages/ServiceDetails/ServiceDeatils";
+import MyReviews from "../pages/MyReviews/MyReviews";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -41,7 +43,11 @@ export const router = createBrowserRouter([
       },
       {
         path:'/services/:id',
-        Component:ServiceDetails
+        element:<PrivateRoute><ServiceDetails></ServiceDetails></PrivateRoute>
+      },
+      {
+        path:'/myreviews',
+        Component:MyReviews
       }
     ],
   },

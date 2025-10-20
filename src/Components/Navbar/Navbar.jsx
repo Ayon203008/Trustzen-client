@@ -7,6 +7,7 @@ import { AuthContext } from "../../Context/AuthContext";
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const {user,signOutUser}=use(AuthContext)
+  
 
 
   const handleSingOut=()=>{
@@ -20,8 +21,12 @@ export default function Navbar() {
   
   <NavLink to={"/"}>Home</NavLink>
   <NavLink to={"/allservices"}>Services</NavLink>
-  <NavLink to={"/addservice"}>Add Service</NavLink>
-  <NavLink to={"/myservices"}>My Service</NavLink>
+  {user &&<NavLink to={"/addservice"}>Add Service</NavLink> }
+  {user &&  <NavLink to={"/myservices"}>My Service</NavLink> }
+  {user &&  <NavLink to={"/myreviews"}>My Reviews</NavLink>}
+  
+
+
   
   </>
 
