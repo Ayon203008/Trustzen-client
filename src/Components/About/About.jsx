@@ -12,7 +12,8 @@ const AdvancedAboutSection = () => {
         "Leveraging AI and behavioral analysis to ensure every review is genuine and reliable.",
       icon: (
         <svg
-          className="w-5 h-5 text-purple-600"
+          // ১. আইকন কালার: ডার্ক মোডেও হাইলাইট রাখতে
+          className="w-5 h-5 text-purple-600 dark:text-purple-400"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -32,7 +33,7 @@ const AdvancedAboutSection = () => {
         "Providing a space where both consumers and businesses can engage transparently.",
       icon: (
         <svg
-          className="w-5 h-5 text-purple-600"
+          className="w-5 h-5 text-purple-600 dark:text-purple-400"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -52,7 +53,7 @@ const AdvancedAboutSection = () => {
         "Serving as a vital tool for informed decisions across various industries worldwide.",
       icon: (
         <svg
-          className="w-5 h-5 text-purple-600"
+          className="w-5 h-5 text-purple-600 dark:text-purple-400"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -69,13 +70,19 @@ const AdvancedAboutSection = () => {
   ];
 
   return (
-    <section className="relative py-24 sm:py-32 bg-gradient-to-b from-white to-purple-50 overflow-hidden">
-      {/* Glowing background elements */}
-      <div className="absolute top-1/3 left-0 w-72 h-72 bg-purple-300/30 blur-[120px] rounded-full"></div>
-      <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-pink-300/20 blur-[100px] rounded-full"></div>
+    // ২. সেকশনের ব্যাকগ্রাউন্ড: লাইট মোডে সাদা থেকে হালকা পার্পল, ডার্ক মোডে গাঢ় ধূসর
+    <section className="relative py-24 sm:py-32 bg-gradient-to-b from-white to-purple-50 overflow-hidden 
+      dark:from-gray-900 dark:to-gray-950 transition-colors duration-500">
+      
+      {/* Glowing background elements (ডার্ক মোডে রঙ এবং অপাসিটি সামঞ্জস্য করা হয়েছে) */}
+      <div className="absolute top-1/3 left-0 w-72 h-72 bg-purple-300/30 blur-[120px] rounded-full 
+        dark:bg-purple-600/20"></div>
+      <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-pink-300/20 blur-[100px] rounded-full 
+        dark:bg-pink-600/15"></div>
 
       <div className="container mx-auto px-6 lg:px-12 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-20">
+          
           {/* Left: Image Section */}
           <motion.div
             initial={{ opacity: 0, x: -60 }}
@@ -87,14 +94,19 @@ const AdvancedAboutSection = () => {
               <img
                 src={IMAGE_URL_1}
                 alt="Building Trust"
-                className="w-full h-80 object-cover shadow-2xl rounded-tl-[4rem] rounded-br-3xl transform rotate-1 transition-all duration-500 hover:rotate-0 z-20 relative"
+                // ৩. ইমেজের বর্ডার: লাইট মোডে সাদা বর্ডার, ডার্ক মোডে গাঢ় বর্ডার
+                className="w-full h-80 object-cover shadow-2xl rounded-tl-[4rem] rounded-br-3xl transform rotate-1 transition-all duration-500 hover:rotate-0 z-20 relative 
+                  dark:border-gray-700"
               />
               <img
                 src={IMAGE_URL_2}
                 alt="Transparency Process"
-                className="w-64 h-64 object-cover rounded-3xl shadow-xl absolute -bottom-14 -right-8 transform -rotate-2 border-4 border-white transition-all duration-500 hover:rotate-0 z-30"
+                // ৪. ছোট ইমেজের বর্ডার: লাইট মোডে সাদা, ডার্ক মোডে গাঢ় বর্ডার
+                className="w-64 h-64 object-cover rounded-3xl shadow-xl absolute -bottom-14 -right-8 transform -rotate-2 border-4 border-white transition-all duration-500 hover:rotate-0 z-30 
+                  dark:border-gray-800"
               />
-              <div className="absolute top-0 left-0 w-full h-full rounded-3xl bg-gradient-to-tr from-purple-300/10 to-transparent"></div>
+              {/* ৫. ইমেজের গ্রেডিয়েন্ট ওভারলে: এটি ডার্ক মোডে না থাকলেও চলে, তবে হালকা ইফেক্ট রাখা যেতে পারে */}
+              <div className="absolute top-0 left-0 w-full h-full rounded-3xl bg-gradient-to-tr from-purple-300/10 to-transparent dark:from-purple-900/10"></div>
             </div>
           </motion.div>
 
@@ -105,21 +117,30 @@ const AdvancedAboutSection = () => {
             transition={{ duration: 0.8 }}
             className="lg:w-6/12"
           >
-            <p className="text-sm font-semibold text-purple-600 uppercase tracking-[0.25em] mb-3">
+            {/* ৬. ট্যাগলাইন কালার */}
+            <p className="text-sm font-semibold text-purple-600 uppercase tracking-[0.25em] mb-3 
+              dark:text-purple-400">
               OUR CORE MISSION
             </p>
-            <h2 className="text-5xl font-extrabold text-gray-900 mb-6 leading-snug">
+            {/* ৭. হেডিং কালার */}
+            <h2 className="text-5xl font-extrabold text-gray-900 mb-6 leading-snug 
+              dark:text-white">
               Building{" "}
-              <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+              {/* গ্রেডিয়েন্ট টেক্সট কালার (ডার্ক মোডেও হাইলাইট রাখতে) */}
+              <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent 
+                dark:from-purple-400 dark:to-pink-400">
                 Trust
               </span>{" "}
               and Driving{" "}
-              <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent 
+                dark:from-purple-400 dark:to-pink-400">
                 Transparency
               </span>
               .
             </h2>
-            <p className="text-lg text-gray-600 mb-10 max-w-2xl">
+            {/* ৮. বডি টেক্সট কালার */}
+            <p className="text-lg text-gray-600 mb-10 max-w-2xl 
+              dark:text-gray-400">
               We’re the largest open review community — fostering authenticity,
               empowering smarter decisions, and promoting growth through honest
               feedback.
@@ -131,16 +152,24 @@ const AdvancedAboutSection = () => {
                 <motion.div
                   whileHover={{ scale: 1.03 }}
                   key={i}
-                  className="flex items-start bg-white/70 backdrop-blur-md rounded-2xl p-5 shadow-sm border border-purple-100 hover:shadow-lg transition"
+                  // ৯. ফিচার কার্ড স্টাইল: লাইট মোডে সাদা/স্বচ্ছ, ডার্ক মোডে গাঢ় ধূসর/স্বচ্ছ
+                  className="flex items-start bg-white/70 backdrop-blur-md rounded-2xl p-5 shadow-sm border border-purple-100 hover:shadow-lg transition 
+                    dark:bg-gray-800/70 dark:border-purple-900 dark:hover:shadow-purple-500/10"
                 >
-                  <div className="p-3 bg-purple-100 rounded-full mr-4 flex-shrink-0">
+                  {/* ১০. আইকন কন্টেইনার ব্যাকগ্রাউন্ড */}
+                  <div className="p-3 bg-purple-100 rounded-full mr-4 flex-shrink-0 
+                    dark:bg-purple-900/50">
                     {feature.icon}
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-800">
+                    {/* ১১. টাইটেল টেক্সট কালার */}
+                    <h3 className="text-lg font-semibold text-gray-800 
+                      dark:text-gray-200">
                       {feature.title}
                     </h3>
-                    <p className="text-sm text-gray-600">
+                    {/* ১২. ডেসক্রিপশন টেক্সট কালার */}
+                    <p className="text-sm text-gray-600 
+                      dark:text-gray-400">
                       {feature.description}
                     </p>
                   </div>
@@ -148,7 +177,7 @@ const AdvancedAboutSection = () => {
               ))}
             </div>
 
-            {/* CTA */}
+            {/* CTA Button (গ্রেডিয়েন্ট বাটন অপরিবর্তিত রাখা হয়েছে) */}
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}

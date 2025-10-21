@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router";
-import { RouterProvider } from "react-router/dom";
 import MainLayout from "../MainLayout/MainLayout";
 import Home from "../Components/Home/Home";
 import Login from "../Components/Login/Login";
@@ -10,45 +9,44 @@ import MyServices from "../pages/MyServices/MyServices";
 import ServiceDetails from "../pages/ServiceDetails/ServiceDeatils";
 import MyReviews from "../pages/MyReviews/MyReviews";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import AboutUs from "../pages/AboutUs/AboutUs";
+
+import Dashboard from "../pages/Dashboard/Dashboard";
+import BookMark from "../pages/BookMark/BookMark";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: MainLayout,
     children: [
+      { index: true, Component: Home },
+      { path: "/login", Component: Login },
+      { path: "/register", Component: Register },
+      { path: "/allservices", Component: AllServices },
+      { path: "/services/:id", element: <PrivateRoute><ServiceDetails /></PrivateRoute> },
+      { path: "/aboutus", Component: AboutUs },
+    ],
+  },
+  {
+    path: "/dashboard",
+    Component: Dashboard,
+    children: [
       {
-        index: true,
-        Component:Home,
-       
+        path: "add-service",
+        Component: AddService,
       },
       {
-        path:'/login',
-        Component:Login
+        path: "my-services",
+        Component: MyServices,
       },
       {
-        path:'/register',
-        Component:Register
+        path: "my-reviews",
+        Component: MyReviews,
       },
       {
-        path:"/allservices",
-        Component:AllServices
+        path: "book-mark",
+        Component: BookMark,
       },
-      {
-        path:'/addservice',
-        Component:AddService
-      },
-      {
-        path:'/myservices',
-        Component:MyServices
-      },
-      {
-        path:'/services/:id',
-        element:<PrivateRoute><ServiceDetails></ServiceDetails></PrivateRoute>
-      },
-      {
-        path:'/myreviews',
-        Component:MyReviews
-      }
     ],
   },
 ]);

@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../Context/AuthContext";
+import toast from "react-hot-toast";
 
 const AddService = () => {
-  const { user } = useContext(AuthContext); // get logged-in user info
+  const { user } = useContext(AuthContext); // logged-in user
   const [formData, setFormData] = useState({
     serviceImage: "",
     serviceTitle: "",
@@ -19,6 +20,7 @@ const AddService = () => {
   const [loading, setLoading] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [imageFile, setImageFile] = useState(null);
 
   // Set email from logged-in user
   useEffect(() => {
@@ -31,22 +33,68 @@ const AddService = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Upload image to ImgBB
+  const uploadImageToImgBB = async (file) => {
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("key", import.meta.env.VITE_IMGBB_API_KEY); // use your .env key
+
+    try {
+      const res = await fetch("https://api.imgbb.com/1/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        return data.data.url; // the uploaded image URL
+      } else {
+        toast.error("❌ Image upload failed");
+        return null;
+      }
+    } catch (error) {
+      console.error("Image upload failed:", error);
+      toast.error("❌ Image upload failed");
+      return null;
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setSuccessMsg("");
     setErrorMsg("");
 
+    if (!imageFile) {
+      toast.error("Please upload an image for the service");
+      setLoading(false);
+      return;
+    }
+
     try {
+      toast.loading("Uploading image...");
+      const imageURL = await uploadImageToImgBB(imageFile);
+      toast.dismiss();
+
+      if (!imageURL) {
+        setLoading(false);
+        return;
+      }
+
+      toast.loading("Adding service...");
+
       const res = await fetch("http://localhost:3000/services", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
+          serviceImage: imageURL,
           price: parseFloat(formData.price),
           tags: formData.tags.split(",").map((tag) => tag.trim()),
         }),
       });
+
+      toast.dismiss();
 
       if (res.ok) {
         setSuccessMsg("✅ Service added successfully!");
@@ -62,6 +110,7 @@ const AddService = () => {
           tags: "",
           email: user.email,
         });
+        setImageFile(null);
       } else {
         setErrorMsg("❌ Failed to add service. Please try again.");
       }
@@ -81,7 +130,6 @@ const AddService = () => {
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Email (read-only) */}
           <input
             type="email"
             name="email"
@@ -91,15 +139,6 @@ const AddService = () => {
           />
 
           <div className="grid md:grid-cols-2 gap-4">
-            <input
-              type="text"
-              name="serviceImage"
-              placeholder="Service Image URL"
-              value={formData.serviceImage}
-              onChange={handleChange}
-              required
-              className="border p-3 rounded-lg w-full focus:ring focus:ring-blue-300"
-            />
             <input
               type="text"
               name="serviceTitle"
@@ -127,6 +166,13 @@ const AddService = () => {
               required
               className="border p-3 rounded-lg w-full focus:ring focus:ring-blue-300"
             />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setImageFile(e.target.files[0])}
+              required
+              className="border p-3 rounded-lg w-full focus:ring focus:ring-blue-300"
+            />
           </div>
 
           <textarea
@@ -142,7 +188,7 @@ const AddService = () => {
             <input
               type="text"
               name="category"
-              placeholder="Category (e.g., Web Development)"
+              placeholder="Category"
               value={formData.category}
               onChange={handleChange}
               required
@@ -157,28 +203,26 @@ const AddService = () => {
               required
               className="border p-3 rounded-lg w-full focus:ring focus:ring-blue-300"
             />
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-4">
             <input
               type="text"
               name="location"
-              placeholder="Location (e.g., New York, USA)"
+              placeholder="Location"
               value={formData.location}
               onChange={handleChange}
               required
               className="border p-3 rounded-lg w-full focus:ring focus:ring-blue-300"
             />
-            <input
-              type="text"
-              name="tags"
-              placeholder="Tags (comma separated, e.g. web, design, UI)"
-              value={formData.tags}
-              onChange={handleChange}
-              required
-              className="border p-3 rounded-lg w-full focus:ring focus:ring-blue-300"
-            />
           </div>
+
+          <input
+            type="text"
+            name="tags"
+            placeholder="Tags (comma separated)"
+            value={formData.tags}
+            onChange={handleChange}
+            required
+            className="border p-3 rounded-lg w-full focus:ring focus:ring-blue-300"
+          />
 
           <button
             type="submit"
@@ -195,9 +239,7 @@ const AddService = () => {
           </p>
         )}
         {errorMsg && (
-          <p className="mt-4 text-red-600 text-center font-semibold">
-            {errorMsg}
-          </p>
+          <p className="mt-4 text-red-600 text-center font-semibold">{errorMsg}</p>
         )}
       </div>
     </div>

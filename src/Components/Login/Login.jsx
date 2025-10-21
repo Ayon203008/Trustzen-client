@@ -3,6 +3,7 @@ import { use } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
+import GoogleSignIn from "../GoogleSignIn/GoogleSignIn";
 
 export default function Login() {
 // assuming your AuthContext has LoginUser
@@ -58,10 +59,11 @@ export default function Login() {
 
         <button
           type="submit"
-          className="w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold py-3 rounded-lg transition"
+          className="w-full mb-5 bg-purple-500 hover:bg-purple-600 text-white font-semibold py-3 rounded-lg transition"
         >
           Login
         </button>
+        <GoogleSignIn></GoogleSignIn>
 
         <p className="text-white/80 text-center mt-4">
           Don’t have an account?{" "}
@@ -69,6 +71,7 @@ export default function Login() {
             Register
           </a>
         </p>
+
       </form>
     </div>
   );
