@@ -18,7 +18,7 @@ const MyReviews = () => {
     if (!user) return;
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:3000/reviews?userEmail=${user.email}`);
+      const res = await fetch(`https://trust-zen.vercel.app/reviews?userEmail=${user.email}`);
       const data = await res.json();
       setReviews(data);
     } catch (err) {
@@ -53,7 +53,7 @@ const MyReviews = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const res = await fetch(`http://localhost:3000/reviews/${id}`, { method: "DELETE" });
+          const res = await fetch(`https://trust-zen.vercel.app/reviews/${id}`, { method: "DELETE" });
           if (res.ok) {
             toast.success("Review deleted successfully!");
             fetchMyReviews();
@@ -85,7 +85,7 @@ const MyReviews = () => {
     if (editedRating === 0) return toast.error("Please select a rating");
 
     try {
-      const res = await fetch(`http://localhost:3000/reviews/${id}`, {
+      const res = await fetch(`https://trust-zen.vercel.app/reviews/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ comment: editedComment, rating: editedRating }),

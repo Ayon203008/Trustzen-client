@@ -16,7 +16,7 @@ const Bookmark = () => {
   useEffect(() => {
     if (!user) return;
 
-    fetch(`http://localhost:3000/bookmarks/${user.email}`)
+    fetch(`https://trust-zen.vercel.app/bookmarks/${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         setBookmarks(data);
@@ -46,7 +46,7 @@ const Bookmark = () => {
 
     if (result.isConfirmed) {
       try {
-        const res = await fetch(`http://localhost:3000/bookmarks/${id}`, {
+        const res = await fetch(`https://trust-zen.vercel.app/bookmarks/${id}`, {
           method: "DELETE",
         });
         const data = await res.json();

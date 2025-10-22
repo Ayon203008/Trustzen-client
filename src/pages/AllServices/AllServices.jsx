@@ -34,7 +34,7 @@ const AllServices = () => {
 
   // Fetch services (Mock rating অংশটি সরানো হয়েছে)
   useEffect(() => {
-    fetch("http://localhost:3000/services")
+    fetch("https://trust-zen.vercel.app/services")
       .then((res) => res.json())
       .then((data) => {
         // রেটিং যুক্ত করার কোড সরানো হলো। এখন ডেটা সরাসরি ব্যবহার করা হবে।

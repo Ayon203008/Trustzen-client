@@ -11,7 +11,7 @@ const PremiumServices = () => {
 
   useEffect(() => {
     // সাধারণত, ডার্ক মোড ইমপ্লিমেন্টেশনের জন্য ডেটা ফেচিং লজিক পরিবর্তন করার প্রয়োজন নেই।
-    fetch("http://localhost:3000/premiumServices")
+    fetch("https://trust-zen.vercel.app/premiumServices")
       .then((res) => res.json())
       .then((data) => {
         setServices(data);

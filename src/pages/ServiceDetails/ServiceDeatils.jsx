@@ -34,7 +34,7 @@ const ServiceDetails = () => {
 
   // Fetch reviews
   const fetchReviews = () => {
-    fetch(`http://localhost:3000/reviews?serviceId=${id}`)
+    fetch(`https://trust-zen.vercel.app/reviews?serviceId=${id}`)
       .then((res) => res.json())
       .then((data) => setReviews(data))
       .catch((err) => console.error(err));
@@ -44,13 +44,13 @@ const ServiceDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const serviceRes = await fetch(`http://localhost:3000/services/${id}`);
+        const serviceRes = await fetch(`https://trust-zen.vercel.app/services/${id}`);
         const serviceData = await serviceRes.json();
         setService(serviceData);
         
         // Check bookmark only if user is logged in
         if (user) {
-          const bookmarkRes = await fetch(`http://localhost:3000/bookmarks?serviceId=${id}&userEmail=${user.email}`);
+          const bookmarkRes = await fetch(`https://trust-zen.vercel.app/bookmarks?serviceId=${id}&userEmail=${user.email}`);
           if (bookmarkRes.ok) {
             const bookmarks = await bookmarkRes.json();
             setBookmarked(bookmarks.length > 0);
@@ -73,8 +73,8 @@ const ServiceDetails = () => {
     try {
       const method = bookmarked ? "DELETE" : "POST";
       const endpoint = bookmarked 
-        ? `http://localhost:3000/bookmarks?serviceId=${service._id}&userEmail=${user.email}` 
-        : "http://localhost:3000/bookmarks";
+        ? `https://trust-zen.vercel.app/bookmarks?serviceId=${service._id}&userEmail=${user.email}` 
+        : "https://trust-zen.vercel.app/bookmarks";
 
       const res = await fetch(endpoint, {
         method: method,
@@ -103,7 +103,7 @@ const handleSubmitReview = async () => {
 
   setReviewLoading(true);
   try {
-    const res = await fetch("http://localhost:3000/reviews", {
+    const res = await fetch("https://trust-zen.vercel.app/reviews", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

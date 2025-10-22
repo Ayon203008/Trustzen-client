@@ -90,7 +90,7 @@ export default function Register() {
 });
       // ✅ Send data to your MongoDB backend
       const newUser = { name, email, password, image: imageURL };
-      const res = await fetch("http://localhost:3000/register", {
+      const res = await fetch("https://trust-zen.vercel.app/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser),
