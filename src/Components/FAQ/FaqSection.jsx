@@ -43,32 +43,27 @@ const faqData = [
 ];
 
 const AccordionItem = ({ question, answer, isOpen, toggle }) => (
-  // ১. অ্যাকর্ডিয়ন আইটেম বর্ডার: ডার্ক মোডে গাঢ় ধূসর বর্ডার
   <div className="border-b border-gray-200 dark:border-gray-700">
     <button
       onClick={toggle}
-      // ২. প্রশ্ন টেক্সট কালার: ডার্ক মোডে সাদা, হোভারে বেগুনি
-      className="flex justify-between items-center w-full p-5 text-left font-semibold text-gray-800 hover:text-purple-600 transition-colors duration-300 
+      className="flex justify-between items-center w-full p-4 sm:p-5 text-left font-semibold text-gray-800 hover:text-purple-600 transition-colors duration-300 
         dark:text-gray-100 dark:hover:text-purple-400"
       aria-expanded={isOpen}
     >
-      <span>{question}</span>
+      <span className="text-sm sm:text-base">{question}</span>
       <ChevronDown
-        // ৩. আইকন কালার: ডার্ক মোডে বেগুনি (Purple)
-        className={`w-6 h-6 text-purple-600 dark:text-purple-400 transition-transform duration-300 ${
+        className={`w-5 h-5 sm:w-6 sm:h-6 text-purple-600 dark:text-purple-400 transition-transform duration-300 ${
           isOpen ? 'rotate-180' : ''
         }`}
       />
     </button>
     <div
       className={`overflow-hidden transition-all duration-500 ease-in-out ${
-        isOpen ? 'max-h-96 opacity-100 p-5 pt-0' : 'max-h-0 opacity-0 p-0'
+        isOpen ? 'max-h-96 opacity-100 p-4 sm:p-5 pt-0' : 'max-h-0 opacity-0 p-0'
       }`}
     >
       <p
-        // ৪. উত্তর টেক্সট কালার: ডার্ক মোডে হালকা ধূসর
-        className="text-gray-600 text-sm leading-relaxed pl-1 
-          dark:text-gray-400"
+        className="text-gray-600 text-sm sm:text-base leading-relaxed pl-1 dark:text-gray-400"
         dangerouslySetInnerHTML={{ __html: answer }}
       ></p>
     </div>
@@ -81,49 +76,39 @@ const FAQSection = () => {
   const toggleItem = (id) => setOpenId(openId === id ? null : id);
 
   return (
-    // ৫. সেকশন ব্যাকগ্রাউন্ড: হালকা ধূসর থেকে গাঢ় ধূসর
-    <section className="py-20 bg-gray-50 relative 
-      dark:bg-gray-900 transition-colors duration-500">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+    <section className="py-16 sm:py-20 bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-500">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         {/* Header */}
-        <div className="text-center mb-16">
-          {/* ৬. ট্যাগলাইন কালার */}
-          <p className="text-sm font-bold text-emerald-600 uppercase tracking-widest mb-2 
-            dark:text-emerald-400">
+        <div className="text-center mb-12 sm:mb-16">
+          <p className="text-xs sm:text-sm font-bold text-emerald-600 uppercase tracking-widest mb-2 dark:text-emerald-400">
             Need Answers?
           </p>
-          {/* ৭. হেডিং কালার */}
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 
-            dark:text-white">
-            Frequently Asked Questions
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100 leading-tight mb-4 sm:mb-5">
+            <span className='mr-2 sm:mr-5'>Frequently</span>
+            <span className='text-blue-600 mr-2 sm:mr-5'>Asked</span> Questions
           </h2>
-          {/* ৮. সাব-হেডিং কালার */}
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto 
-            dark:text-gray-400">
+          <p className="text-sm sm:text-lg text-gray-700 max-w-2xl mx-auto dark:text-gray-400">
             Find quick answers to common questions about our platform, security,
             and review process.
           </p>
         </div>
 
         {/* FAQ Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
           {faqData.map((category) => (
             <div key={category.id} className="space-y-6">
               {/* Category Header */}
               <div className="flex items-center space-x-3 mb-4">
-                {/* ৯. ক্যাটেগরি আইকন কালার */}
-                <category.icon className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-                {/* ১০. ক্যাটেগরি টাইটেল কালার */}
-                <h3 className="text-2xl font-bold text-gray-800 
-                  dark:text-gray-100">
+                <div className="p-2 bg-white/80 dark:bg-gray-800/80 rounded-lg backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50">
+                  <category.icon className="w-5 sm:w-6 h-5 sm:h-6 text-purple-600 dark:text-purple-400" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100">
                   {category.category}
                 </h3>
               </div>
 
               {/* Accordion */}
-              {/* ১১. অ্যাকর্ডিয়ন কন্টেইনার স্টাইল: সাদা ব্যাকগ্রাউন্ড থেকে গাঢ় ব্যাকগ্রাউন্ড */}
-              <div className="bg-white rounded-2xl shadow-lg border border-gray-100 divide-y divide-gray-100 
-                dark:bg-gray-800 dark:border-gray-700 dark:divide-gray-700">
+              <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200/60 divide-y divide-gray-200/60 dark:bg-gray-800/90 dark:border-gray-700/60 dark:divide-gray-700/60">
                 {category.questions.map((item, idx) => {
                   const itemId = `${category.id}-${idx}`;
                   return (
@@ -142,20 +127,22 @@ const FAQSection = () => {
         </div>
 
         {/* CTA */}
-        <div className="mt-16 text-center">
-          {/* ১২. CTA টেক্সট কালার */}
-          <p className="text-xl font-semibold text-gray-800 mb-4 
-            dark:text-gray-200">
-            Still can't find the answer?
-          </p>
-          {/* CTA বাটন (গ্রেডিয়েন্ট অপরিবর্তিত রাখা হয়েছে) */}
-          <a
-            href="/contact"
-            className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-0.5"
-          >
-            Contact Our Support Team
-            <Zap className="ml-2 w-5 h-5" />
-          </a>
+        <div className="mt-12 sm:mt-16 text-center">
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 sm:p-10 shadow-lg border border-gray-200/50 dark:bg-gray-800/80 dark:border-gray-700/50">
+            <p className="text-lg sm:text-xl font-semibold text-gray-800 mb-4 dark:text-gray-200">
+              Still can't find the answer?
+            </p>
+            <p className="text-gray-600 mb-6 max-w-md mx-auto dark:text-gray-400">
+              Our support team is here to help you with any additional questions you might have.
+            </p>
+            <a
+              href="/contact"
+              className="inline-flex items-center px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 hover:scale-105"
+            >
+              Contact Our Support Team
+              <Zap className="ml-2 w-4 sm:w-5 h-4 sm:h-5" />
+            </a>
+          </div>
         </div>
       </div>
     </section>

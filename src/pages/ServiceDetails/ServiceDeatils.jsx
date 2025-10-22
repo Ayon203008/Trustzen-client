@@ -96,41 +96,46 @@ const ServiceDetails = () => {
       toast.error("Something went wrong with bookmarking."); // 💡 নোটিফিকেশন যুক্ত
     }
   };
+const handleSubmitReview = async () => {
+  if (!user) return toast.error("Please log in to submit a review");
+  if (!newReview.trim()) return toast.error("Review cannot be empty");
+  if (newRating === 0) return toast.error("Please select a rating");
 
-  const handleSubmitReview = async () => {
-    if (!user) return toast.error("Please log in to submit a review"); // 💡 নোটিফিকেশন যুক্ত
-    if (!newReview.trim()) return toast.error("Review cannot be empty"); // 💡 নোটিফিকেশন যুক্ত
-    if (newRating === 0) return toast.error("Please select a rating"); // 💡 নোটিফিকেশন যুক্ত
+  setReviewLoading(true);
+  try {
+    const res = await fetch("http://localhost:3000/reviews", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        serviceId: id,
+        user: user.displayName || user.email,
+        userEmail: user.email,
+        serviceTitle: service.serviceTitle, // ✅ Add this line
+        comment: newReview,
+        rating: newRating,
+       
+      }),
+    });
 
-    setReviewLoading(true);
-    try {
-      const res = await fetch("http://localhost:3000/reviews", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          serviceId: id,
-          user: user.displayName || user.email,
-          comment: newReview,
-          rating: newRating,
-        }),
-      });
-
-      if (res.ok) {
-        fetchReviews(); 
-        setNewReview("");
-        setNewRating(0);
-        toast.success("Review submitted successfully!"); // 💡 নোটিফিকেশন যুক্ত
-      } else {
-        // 💡 নোটিফিকেশন যুক্ত
-        toast.error("Failed to submit review. You might have already reviewed this service.");
-      }
-    } catch (err) {
-      console.error(err);
-      toast.error("Something went wrong while submitting review."); // 💡 নোটিফিকেশন যুক্ত
-    } finally {
-      setReviewLoading(false);
+    if (res.ok) {
+      fetchReviews();
+      setNewReview("");
+      setNewRating(0);
+      toast.success("Review submitted successfully!");
+    } else {
+      const data = await res.json();
+      toast.error(data.message || "Failed to submit review");
     }
-  };
+  } catch (err) {
+    console.error(err);
+    toast.error("Something went wrong while submitting review.");
+  } finally {
+    setReviewLoading(false);
+  }
+};
+
+
+
 
   if (loading)
     return (
@@ -273,24 +278,34 @@ const ServiceDetails = () => {
                       <p className="text-gray-500 dark:text-gray-400">No reviews yet. Be the first!</p>
                   )}
                   <div className="space-y-4">
-                      {reviews.map((review, idx) => (
-                          <div
-                              key={idx}
-                              // Review Card Style
-                              className="p-4 border-l-4 border-blue-500 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-blue-400 shadow-md transition hover:shadow-lg"
-                          >
-                              <div className="flex justify-between items-start">
-                                  <div className="flex items-center gap-2">
-                                      <p className="font-semibold text-gray-800 dark:text-gray-200">{review.user}</p>
-                                  </div>
-                                  <RatingDisplay rating={review.rating} size="text-lg" />
-                              </div>
-                              <p className="mt-2 text-gray-700 dark:text-gray-300">{review.comment}</p>
-                              <p className="text-gray-400 text-xs mt-2">
-                                  {review.date ? new Date(review.date).toLocaleString() : "Just now"}
-                              </p>
-                          </div>
-                      ))}
+                      {reviews.map((review) => (
+  <div
+    key={review._id}
+    className="p-4 rounded-xl shadow-md border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 transition hover:shadow-lg"
+  >
+    <div className="flex justify-between items-start mb-2">
+      <div>
+        <p className="font-semibold text-gray-800 dark:text-gray-200">{review.user}</p>
+        {/* Show service name here */}
+        <p className="text-sm text-gray-500 dark:text-gray-400">Service: {review.serviceTitle}</p>
+      </div>
+      <div className="flex">
+        {[...Array(5)].map((_, i) =>
+          i < review.rating ? (
+            <AiFillStar key={i} className="text-yellow-500 w-5 h-5" />
+          ) : (
+            <AiOutlineStar key={i} className="text-gray-300 dark:text-gray-500 w-5 h-5" />
+          )
+        )}
+      </div>
+    </div>
+
+    <p className="text-gray-700 dark:text-gray-300">{review.comment}</p>
+    <p className="text-gray-400 text-xs mt-1">{new Date(review.date).toLocaleString()}</p>
+
+    {/* Edit & Delete buttons remain same */}
+  </div>
+))}
                   </div>
               </div>
 

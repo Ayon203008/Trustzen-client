@@ -1,76 +1,148 @@
+"use client";
 import React from "react";
 import CountUp from "react-countup";
-import { FaUsers, FaServicestack, FaStar } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { FaUsers, FaServicestack, FaStar, FaProjectDiagram } from "react-icons/fa";
 
 const AdvancedStats = () => {
   const stats = [
-    { icon: <FaUsers />, title: "Users", value: 1250 },
-    { icon: <FaServicestack />, title: "Services", value: 320 },
-    { icon: <FaStar />, title: "Reviews", value: 780 },
+    { 
+      icon: <FaUsers />, 
+      title: "Happy Clients", 
+      value: 12500,
+      suffix: "+",
+      description: "Satisfied customers worldwide",
+      color: "from-blue-500 to-cyan-500",
+      bgColor: "bg-blue-50 dark:bg-blue-900/20",
+      iconColor: "text-blue-500"
+    },
+    { 
+      icon: <FaServicestack />, 
+      title: "Services", 
+      value: 320,
+      suffix: "+",
+      description: "Professional services offered",
+      color: "from-purple-500 to-pink-500",
+      bgColor: "bg-purple-50 dark:bg-purple-900/20",
+      iconColor: "text-purple-500"
+    },
+    { 
+      icon: <FaStar />, 
+      title: "Reviews", 
+      value: 4780,
+      suffix: "+",
+      description: "5-star rated reviews",
+      color: "from-amber-500 to-orange-500",
+      bgColor: "bg-amber-50 dark:bg-amber-900/20",
+      iconColor: "text-amber-500"
+    },
+    { 
+      icon: <FaProjectDiagram />, 
+      title: "Projects", 
+      value: 1560,
+      suffix: "+",
+      description: "Successful projects delivered",
+      color: "from-emerald-500 to-green-500",
+      bgColor: "bg-emerald-50 dark:bg-emerald-900/20",
+      iconColor: "text-emerald-500"
+    },
   ];
 
   return (
-    // ১. সেকশন ব্যাকগ্রাউন্ড: হালকা ধূসর থেকে গাঢ় ধূসর
-    <div className="relative py-12 bg-gray-50 overflow-hidden 
-      dark:bg-gray-900 transition-colors duration-500"> 
-      
-      {/* Floating pastel circles (ডার্ক মোডেও দৃশ্যমান করার জন্য রঙ ও অপাসিটি সামঞ্জস্য করা হয়েছে) */}
-      <div className="absolute top-0 left-0 w-full h-full">
-        <motion.div
-          className="absolute w-36 h-36 bg-pink-200 opacity-25 rounded-full blur-3xl 
-            dark:bg-pink-700/20"
-          animate={{ y: [0, 30, 0], x: [0, 30, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute w-52 h-52 bg-blue-200 opacity-25 rounded-full blur-3xl top-20 left-16 
-            dark:bg-blue-700/20"
-          animate={{ y: [0, -30, 0], x: [0, -30, 0] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        />
+    <div className="relative py-20 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
+      {/* Simple Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-10 left-10 w-64 h-64 bg-blue-200/20 dark:bg-blue-600/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-10 right-10 w-80 h-80 bg-purple-200/20 dark:bg-purple-600/10 rounded-full blur-3xl" />
       </div>
 
-      <motion.h1
-        // ২. হেডিং টেক্সট কালার: গাঢ় ধূসর থেকে সাদা
-        className="text-5xl md:text-4xl font-bold text-gray-800 mb-10 text-center z-10 
-          dark:text-white"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-      >
-        Our Platform in Numbers
-      </motion.h1>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header Section */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 text-sm font-medium mb-6">
+            Trusted by Thousands
+          </div>
 
-      <div className="flex flex-wrap justify-center gap-8 z-10">
-        {stats.map((stat, index) => (
-          <motion.div
-            key={index}
-            // ৩. স্ট্যাট কার্ড ব্যাকগ্রাউন্ড, শ্যাডো এবং বর্ডার: সাদা থেকে গাঢ় ধূসর
-            className="flex flex-col items-center bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer w-44 
-              dark:bg-gray-800 dark:shadow-xl dark:hover:shadow-2xl dark:border dark:border-gray-700"
-            whileHover={{ scale: 1.05, y: -6 }}
-          >
-            <motion.div
-              // ৪. আইকন কালার: ইন্ডিগো (Indigo)
-              className="text-indigo-500 text-5xl mb-2 
-                dark:text-indigo-400"
-              animate={{ rotate: [0, 10, -10, 0] }}
-              transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl  font-extrabold text-gray-900 dark:text-white mb-6">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
+              Numbers
+            </span>{" "}
+            That Matter
+          </h1>
+
+          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            Join thousands of satisfied clients who trust our premium services
+          </p>
+        </div>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {stats.map((stat, index) => (
+            <div
+              key={index}
+              className="relative group"
             >
-              {stat.icon}
-            </motion.div>
-            {/* ৫. টাইটেল টেক্সট কালার: গাঢ় ধূসর থেকে হালকা ধূসর */}
-            <div className="text-gray-800 text-lg font-semibold mb-1 
-              dark:text-gray-300">
-              {stat.title}
+              <div className={`relative rounded-2xl ${stat.bgColor} p-8 border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden`}>
+                
+                {/* Hover Effect */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
+
+                <div className="relative z-10">
+                  {/* Icon */}
+                  <div className={`inline-flex items-center justify-center w-14 h-14 rounded-xl ${stat.bgColor} mb-6 group-hover:scale-105 transition-transform duration-300`}>
+                    <div className={`text-2xl ${stat.iconColor}`}>
+                      {stat.icon}
+                    </div>
+                  </div>
+
+                  {/* Value */}
+                  <div className="mb-2">
+                    <div className="flex items-baseline gap-1">
+                      <span className={`text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${stat.color}`}>
+                        <CountUp 
+                          end={stat.value} 
+                          duration={2.5} 
+                          separator="," 
+                        />
+                      </span>
+                      {stat.suffix && (
+                        <span className={`text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r ${stat.color}`}>
+                          {stat.suffix}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    {stat.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {stat.description}
+                  </p>
+
+                  {/* Simple Progress Bar */}
+                  <div className="w-full h-1 bg-gray-200 dark:bg-gray-700 rounded-full mt-4 overflow-hidden">
+                    <div 
+                      className={`h-full bg-gradient-to-r ${stat.color} rounded-full transition-all duration-1000`}
+                      style={{ width: '100%' }}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
-            {/* ৬. CountUp ভ্যালু (গ্রেডিয়েন্ট টেক্সট): গ্রেডিয়েন্ট অপরিবর্তিত রাখা হয়েছে, তবে ডার্ক মোডে এটি দৃশ্যমান হবে। */}
-            <div className="text-3xl md:text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-pink-400 via-yellow-400 to-green-400">
-              <CountUp end={stat.value} duration={3} separator="," />
-            </div>
-          </motion.div>
-        ))}
+          ))}
+        </div>
+
+        {/* Bottom Trust Badge */}
+        <div className="text-center mt-12">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              Trusted by industry leaders
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );

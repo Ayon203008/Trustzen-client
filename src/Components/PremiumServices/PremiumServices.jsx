@@ -39,10 +39,13 @@ const PremiumServices = () => {
     <div className="py-16 min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-500">
       <div className="w-11/12 mx-auto">
         {/* ৩. হেডিং টেক্সট কালার */}
-        <h2 className="text-4xl font-bold text-center text-gray-800 mb-10 
-          dark:text-white transition-colors duration-500">
-          🌟 Premium Services
-        </h2>
+        <div className="text-center">
+
+         <h1 className="text-5xl mb-20 sm:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100 leading-tight">
+            
+            <span className="text-blue-600 dark:text-blue-400">Premium </span> Services
+          </h1>
+              </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {services.map((service) => (
